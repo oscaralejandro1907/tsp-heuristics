@@ -8,5 +8,14 @@ namespace TSP
 {
     internal class Node
     {
+        public string Name { get; set; }
+        public List<Edge> ListEdges { get; set; }
+        
+        public Node(string name)
+        {
+            Name = name;
+            ListEdges = new List<Edge>();          
+        }
+
     }
 }
