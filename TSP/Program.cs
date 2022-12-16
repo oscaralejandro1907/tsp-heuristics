@@ -6,7 +6,7 @@
         {
             Data data = new Data();
             NearestNeighbor nearestNeighbor = new NearestNeighbor(data);
-            nearestNeighbor.solve();
+            nearestNeighbor.Solve();
         }
     }
 }

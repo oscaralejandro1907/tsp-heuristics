@@ -18,5 +18,12 @@ namespace TSP
             this.destiny = destiny;
             this.distance = distance;
         }
+
+        public Edge()
+        {
+            origin = "";
+            destiny = "";
+            distance = -1;
+        }
     }
 }

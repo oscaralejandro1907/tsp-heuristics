@@ -9,16 +9,21 @@ namespace TSP
     internal class Node
     {
         public string Name { get; set; }
-        public List<Node> ListAdjacentNodes { get; set; }
-        public List<Edge> ListEdges { get; set; }
+
+        public Dictionary<string, int> DictDistances { get; set; }
         
         public Node(string name)
         {
             Name = name;
-            ListAdjacentNodes = new List<Node>();
-            ListEdges = new List<Edge>();   
-            
+            DictDistances = new Dictionary<string, int>();
+                  
         }
+
+        public Node()
+        {
+            Name = "";
+            DictDistances = new Dictionary<string, int>();
+        }        
 
     }
 }
