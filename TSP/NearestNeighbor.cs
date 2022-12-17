@@ -23,7 +23,7 @@ namespace TSP
 
         public List<Node> Solve()
         {            
-            List<Node> ListUnvisitedNodes = new(ListNodes);          
+            List<Node> listUnvisitedNodes = new(ListNodes);          
 
             //Start tour with just one city randomly chosen
             var random = new Random(0);
@@ -32,18 +32,23 @@ namespace TSP
 
             ListTour.Add(selectedNode);           
             
-            ListUnvisitedNodes.Remove(selectedNode);
+            listUnvisitedNodes.Remove(selectedNode);
             
-            while (ListUnvisitedNodes.Count!=0)
+            while (listUnvisitedNodes.Count!=0)
             {
                 Node N = ListTour.Last();
                 //Find the closest unvisited city from the last visited node
-                 Node nextNodeToVisit = NextNodeToVisit(N, ListUnvisitedNodes);
+                 Node nextNodeToVisit = NextNodeToVisit(N, listUnvisitedNodes);
 
                 ListTour.Add(nextNodeToVisit);
-                ListUnvisitedNodes.Remove(nextNodeToVisit);
+                listUnvisitedNodes.Remove(nextNodeToVisit);
             }
+            
+            //Add the return trip to the route
+            ListTour.Add(ListTour[0]);
 
+            int tourLength = CalculateDistanceOfTour(ListTour);
+            
             return ListTour;
         }
 
@@ -60,11 +65,21 @@ namespace TSP
                     nextNode = n;
                 }              
             }
-
             return nextNode;
-
         }
 
+        public int CalculateDistanceOfTour(List<Node> listRoute)
+        {
+            int totalDistance = 0;
+            for (int i = 0; i < listRoute.Count - 1 ; i++)
+            {
+                Node org = listRoute[i];
+                Node dest = listRoute[i + 1];
 
+                totalDistance += org.DistanceTo(dest);
+            }
+
+            return totalDistance;
+        }
     }
 }
