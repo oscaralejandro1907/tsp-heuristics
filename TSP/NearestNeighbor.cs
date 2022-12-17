@@ -10,12 +10,12 @@ namespace TSP
     {
         public Data Instance { get; set; }
         public List<Node> ListNodes { get; set; } 
-        public List<Node> ListNodeTour { get; set; }    //List to save the route (solution)
+        public List<Node> ListTour { get; set; }    //List to save the route (solution)
         
         public NearestNeighbor(Data instance)
         {
             this.Instance = instance;
-            this.ListNodeTour = new();
+            this.ListTour = new();
             
             this.ListNodes = Instance.ListNodes;
 
@@ -30,74 +30,38 @@ namespace TSP
             int selectedNodeIndex = random.Next(ListNodes.Count);
             Node selectedNode = ListNodes[selectedNodeIndex];
 
-            ListNodeTour.Add(selectedNode);           
+            ListTour.Add(selectedNode);           
             
             ListUnvisitedNodes.Remove(selectedNode);
             
             while (ListUnvisitedNodes.Count!=0)
             {
+                Node N = ListTour.Last();
                 //Find the closest unvisited city from the last visited node
-                NextNodeToVisit(ListUnvisitedNodes);
+                 Node nextNodeToVisit = NextNodeToVisit(N, ListUnvisitedNodes);
+
+                ListTour.Add(nextNodeToVisit);
+                ListUnvisitedNodes.Remove(nextNodeToVisit);
             }
 
-            return ListNodeTour;
+            return ListTour;
         }
 
-        public void NextNodeToVisit(List<Node> listUnvisitedNodes)
-        {        
-            Node N = ListNodeTour.Last();
-
+        public Node NextNodeToVisit(Node lastVisitedNode, List<Node> listUnvisitedNodes)
+        {
+            var nextNode = new Node();
+            int minD = Int16.MaxValue;
             foreach(Node n in listUnvisitedNodes)
             {
-                if (N.Name.Equals(n.Name))
+                int distvalue = lastVisitedNode.DistanceTo(n);
+                if ( distvalue < minD)
                 {
-                    Edge e = 
-                }
+                    minD = distvalue;
+                    nextNode = n;
+                }              
             }
 
-            foreach(Edge e in N.ListEdges)
-            {
-                if(e.destiny == )
-            }
-            var chosenEdge = N.ListEdges.OrderBy(p => p.distance).FirstOrDefault();
-
-
-
-
-                //return listUnvisitedNodes[0];
-
-
-            //    Edge? chosenEdge = new Edge();  //? Sets Edge to nullable ref type
-            //    chosenEdge = ListTour.Last().ListEdges.MinBy(e => e.distance);    //Chose The min edge from the last visited city
-
-            //    bool isVisited;
-            //    isVisited = ListTour.Exists(n => n.Name == chosenEdge.destiny);
-
-
-            //    if (isVisited)
-            //    {
-            //        ListTour
-            //    }                                                  
-
-
-            //    if (!isVisited)
-            //    {
-            //        foreach (Node n in Instance.ListNodes)
-            //        {
-            //            if (n.Name == chosenEdge.destiny)
-            //            {
-            //                return n;
-            //            }
-            //        }
-            //    }
-
-            //    else
-            //    {
-
-
-
-
-
+            return nextNode;
 
         }
 

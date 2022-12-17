@@ -29,8 +29,7 @@ namespace TSP
             ListNodes.Add(b);
             ListNodes.Add(c);
             ListNodes.Add(d);
-
-            //a.DictDistances["b"] = 2; //Access
+           
             a.DictDistances.Add("b", 2);            
             a.DictDistances.Add("c", 5);
             a.DictDistances.Add("d", 7);
@@ -41,7 +40,7 @@ namespace TSP
 
             c.DictDistances.Add("a", 5);
             c.DictDistances.Add("b", 8);
-            c.DictDistances.Add("d", 8);
+            c.DictDistances.Add("d", 1);
 
             d.DictDistances.Add("a", 7);
             d.DictDistances.Add("b", 3);

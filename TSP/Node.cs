@@ -23,7 +23,12 @@ namespace TSP
         {
             Name = "";
             DictDistances = new Dictionary<string, int>();
-        }        
+        }
+        
+        public int DistanceTo(Node n) 
+        { 
+            return DictDistances[n.Name];
+        }
 
     }
 }
