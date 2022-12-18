@@ -40,9 +40,8 @@ namespace TSP
             
             while (listUnvisitedNodes.Count != 0)
             {
-                
-                
-                //
+                //Find node with minimum distance to insert in the partial tour
+                Node K = FindNodeToInsert(listUnvisitedNodes);
 
             }
 
@@ -65,19 +64,31 @@ namespace TSP
             return nextNode;
         }
 
-        public Node findNodeToInsert(List<Node> listUnvisitedNodes)
+        public Node FindNodeToInsert(List<Node> listUnvisitedNodes)
         {
-            Node cityK = new();
+            Node chosenNode = new();
+            int minD = Int16.MaxValue;
             foreach (var n in ListTour)
             {
                 if (n!=ListTour[0])
-                { 
-                     = minDistanceNode(n, listUnvisitedNodes);
+                {
+                    foreach (var u in listUnvisitedNodes)
+                    {
+                        int distanceValue = n.DistanceTo(u);
+                        if (distanceValue < minD)
+                        {
+                            minD = distanceValue;
+                            chosenNode = u;
+                        }
+                    }
                 }
-                    
             }
-            
+            return chosenNode;
         }
 
+        public void FindNearestPosition(Node k)
+        {
+            
+        }
     }
 }
