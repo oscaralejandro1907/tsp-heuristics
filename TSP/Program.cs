@@ -5,8 +5,9 @@
         static void Main(string[] args)
         {
             Data data = new Data();
-            NearestNeighbor nearestNeighbor = new NearestNeighbor(data);
-            nearestNeighbor.Solve();
+            
+            NearestInsertion heuristic = new(data);
+            heuristic.Solve();
         }
     }
 }
