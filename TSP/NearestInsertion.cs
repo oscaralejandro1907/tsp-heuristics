@@ -40,10 +40,17 @@ namespace TSP
             
             while (listUnvisitedNodes.Count != 0)
             {
-                //Find node with minimum distance to insert in the partial tour
-                Node K = FindNodeToInsert(listUnvisitedNodes);
-
+                //Select node with minimum distance to insert in the partial tour
+                Node K = SelectNodeToInsert(listUnvisitedNodes);
+                //Insert node 
+                InsertNodeAtNearestPosition(K, ListTour);
+                listUnvisitedNodes.Remove(K);   //Remove node from unvisited nodes
             }
+
+            //Add the return trip to the route
+            ListTour.Add(ListTour[0]);
+
+            int tourLength = CalculateDistanceOfTour(ListTour);
 
             return ListTour;
         }
@@ -64,21 +71,21 @@ namespace TSP
             return nextNode;
         }
 
-        public Node FindNodeToInsert(List<Node> listUnvisitedNodes)
+        public Node SelectNodeToInsert(List<Node> listUnvisitedNodes)
         {
             Node chosenNode = new();
             int minD = Int16.MaxValue;
-            foreach (var n in ListTour)
+            foreach (Node j in ListTour)
             {
-                if (n!=ListTour[0])
+                if (j!=ListTour[0])
                 {
-                    foreach (var u in listUnvisitedNodes)
+                    foreach (Node k in listUnvisitedNodes)
                     {
-                        int distanceValue = n.DistanceTo(u);
+                        int distanceValue = j.DistanceTo(k);
                         if (distanceValue < minD)
                         {
                             minD = distanceValue;
-                            chosenNode = u;
+                            chosenNode = k;
                         }
                     }
                 }
@@ -86,9 +93,39 @@ namespace TSP
             return chosenNode;
         }
 
-        public void FindNearestPosition(Node k)
+        public void InsertNodeAtNearestPosition(Node k, List<Node> routeList)
         {
-            
+            int minEdgeD = Int16.MaxValue;
+            int positionToInsert = -1;
+            for (int n = 0; n < routeList.Count - 1; n++)
+            {
+                Node i = routeList[n];
+                Node j = routeList[n + 1];
+
+                int edgeDistance = i.DistanceTo(k) + k.DistanceTo(j) - i.DistanceTo(j);
+
+                if (edgeDistance < minEdgeD)
+                 {
+                    minEdgeD=edgeDistance;
+                    positionToInsert = n + 1; 
+                }
+            }
+            routeList.Insert(positionToInsert, k);
         }
+
+        public int CalculateDistanceOfTour(List<Node> listRoute)
+        {
+            int totalDistance = 0;
+            for (int i = 0; i < listRoute.Count - 1; i++)
+            {
+                Node org = listRoute[i];
+                Node dest = listRoute[i + 1];
+
+                totalDistance += org.DistanceTo(dest);
+            }
+
+            return totalDistance;
+        }
+
     }
 }
