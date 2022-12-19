@@ -105,7 +105,7 @@ namespace TSP
                 int edgeDistance = i.DistanceTo(k) + k.DistanceTo(j) - i.DistanceTo(j);
 
                 if (edgeDistance < minEdgeD)
-                 {
+                {
                     minEdgeD=edgeDistance;
                     positionToInsert = n + 1; 
                 }

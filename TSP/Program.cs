@@ -6,7 +6,7 @@
         {
             Data data = new Data();
             
-            NearestInsertion heuristic = new(data);
+            CheapestInsertion heuristic = new(data);
             heuristic.Solve();
         }
     }
